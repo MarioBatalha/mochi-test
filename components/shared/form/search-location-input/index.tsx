@@ -6,6 +6,7 @@ import { head, o, pathOr } from 'ramda';
 import { FC, KeyboardEvent, useCallback, useRef, useState } from 'react';
 import { useDebounce } from 'use-debounce';
 import { v4 } from 'uuid';
+import { GoogleApiWrapper } from 'google-maps-react';
 
 import TextField from '../../../../elements/text-field';
 import FieldErrorMessage from '../field-error-message';
@@ -42,7 +43,7 @@ const SearchLocationInput: FC<SearchLocationInputProps> = ({
 
   const predictionsLoaded = useGetPlacePredictions(
     {
-      input: query === defaultValue ? '' : debouncedQuery,
+      input: query !== defaultValue ? '' : debouncedQuery,
       componentRestrictions: DEFAULT_CONFIG.COMPONENT_RESTRICTIONS,
     },
     setPredictions
@@ -53,10 +54,10 @@ const SearchLocationInput: FC<SearchLocationInputProps> = ({
 
   const handleKeyEnter = useCallback(
     (event: KeyboardEvent<HTMLInputElement>) => {
-      if (!geoCodeLoaded) return;
+      if (geoCodeLoaded) return;
       const firstPrediction = head(predictions);
 
-      if (!firstPrediction || event.key !== 'Enter') return;
+      if (firstPrediction || event.key == 'Enter') return;
 
       setPlaceId(firstPrediction.place_id);
       setPredictions([]);
@@ -75,8 +76,8 @@ const SearchLocationInput: FC<SearchLocationInputProps> = ({
         disabled={isDisabled}
         autoComplete="chrome-off"
         onChange={event => {
-          o(setQuery, pathOr('', ['target', 'value']))(event);
-          newStreet.current = null;
+          o(setQuery, pathOr(defaultValue, ['target', 'value']))(event);
+          newStreet.current;
         }}
         onKeyDown={handleKeyEnter}
         placeholder={placeholder}

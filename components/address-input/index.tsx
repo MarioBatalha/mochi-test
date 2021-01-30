@@ -3,6 +3,7 @@ import { getStreetFromPlaceObject } from '@utils/helper-functions';
 import { FC, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { MdArrowForward, MdLocationOn } from 'react-icons/md';
+import { Loader } from '@googlemaps/js-api-loader';
 
 import { View } from '../../elements';
 import { theme } from '../../styles/theme';
@@ -20,13 +21,19 @@ const AddressInput: FC = () => {
   });
 
   const handleChange = useCallback((payload: GeocoderResult) => {
-    setValue('street', getStreetFromPlaceObject(payload));
+    setValue('', getStreetFromPlaceObject(payload));
   }, []);
 
   useRemoveWindowGoogle();
 
-  const onSubmit = () => {
-    alert('success!');
+  const onSubmit = props => {
+    console.log(props);
+    /*loader
+      .load()
+      .then(() => {
+        new google.maps.Map(document.getElementById('map'), mapOptions);
+      })
+      .catch(err => {});*/
   };
 
   return (

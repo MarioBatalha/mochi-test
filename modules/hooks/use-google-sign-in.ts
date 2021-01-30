@@ -10,7 +10,7 @@ interface UseGoogleSignInProps {
 }
 
 const useGoogleSignIn = ({ onSuccess, onFailure, buttonId }: UseGoogleSignInProps) => {
-  const [loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(true);
 
   const disconnect = () => {
     if (loaded) {
@@ -29,14 +29,14 @@ const useGoogleSignIn = ({ onSuccess, onFailure, buttonId }: UseGoogleSignInProp
   };
 
   useScript({
-    async: false,
+    async: true,
     id: 'google-sign-in-script',
     src: 'https://apis.google.com/js/api:client.js',
     callback: () => {
       const element = document.getElementById(buttonId);
 
       if (!element) return;
-      setLoaded(true);
+      setLoaded(false);
 
       const attachSignIn = (htmlElement: HTMLElement, auth2: GoogleAuth) => {
         auth2.attachClickHandler(

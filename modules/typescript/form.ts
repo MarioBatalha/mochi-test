@@ -13,6 +13,6 @@ export interface FormField {
   autofocusOnEnable?: boolean;
   defaultValues?: any;
   unregister?: (name: string) => void;
-  setValue?: (name: string, value: unknown) => void;
+  setValue?: (name: string, value: string) => void;
   enhancedStyle?: boolean;
 }

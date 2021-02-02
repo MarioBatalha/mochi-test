@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, fireEvent, cleanup } from '@testing-library/react';
-import useClickOutsideListenerRef from '../modules/hooks/use-click-outside-listener-ref';
 import SearchLocationInput from '../components/shared/form/search-location-input';
 
 describe('Use click outside listener references', () => {

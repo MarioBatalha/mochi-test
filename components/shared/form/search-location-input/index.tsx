@@ -57,7 +57,7 @@ const SearchLocationInput: FC<SearchLocationInputProps> = ({
       if (geoCodeLoaded) return;
       const firstPrediction = head(predictions);
 
-      if (firstPrediction || event.key == 'Enter') return;
+      if (!firstPrediction || event.key == 'Enter') return;
 
       setPlaceId(firstPrediction.place_id);
       setPredictions([]);
